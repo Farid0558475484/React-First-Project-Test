@@ -4,12 +4,15 @@
 }
 .firstProject {
   display: grid;
+  width: 1200px;
+  margin: 0 auto;
 
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
-  /* grid-row-gap: 10px; */
+  grid-row-gap: 10px;
+  grid-column-gap:10px ;
   grid-template-areas:
-   " h h"
+    " h h"
     "n c";
 }
 
@@ -18,8 +21,8 @@
   background-color: green;
 }
 .header img {
-  width: 20px;
-  height: 20px;
+  width: 50px;
+  height: 50px;
 }
 
 .nav {
@@ -30,4 +33,8 @@
 .content {
   grid-area: c;
   background-color: blueviolet;
+}
+.content img {
+  width:1000px ;
+  height: 410px;
 }
