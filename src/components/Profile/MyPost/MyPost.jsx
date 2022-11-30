@@ -4,7 +4,7 @@ import Post from "./Post/Post";
 
 function MyPost() {
   return (
-    <>
+    <div className={s.mypost}>
       <textarea></textarea>
       <div>
         <button>Add me</button>
@@ -13,8 +13,8 @@ function MyPost() {
       <p className={s.item}>Sagol</p>
 
       <Post message="Hi,My name Farid///its props" />
-      <Post message="my favorite hobbi is writing code//its props"/>
-    </>
+      <Post message="my favorite hobbi is writing code//its props" />
+    </div>
   );
 }
 
