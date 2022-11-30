@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
 }
-.firstProject {
+.app-wrapper {
   display: grid;
   width: 1200px;
   margin: 0 auto;
@@ -16,7 +16,12 @@
     "n c";
 }
 
+.app-wrapper-content{
+  grid-area: c;
+  background-color: blueviolet;
+  cursor: default;
 
+}
 
 
 
