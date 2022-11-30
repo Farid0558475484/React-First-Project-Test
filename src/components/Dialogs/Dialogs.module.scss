@@ -12,3 +12,21 @@
   color: white;
   font-size: 20px;
 }
+
+.dialogs {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+
+  .dialogsItems {
+    padding: 10px;
+  }
+}
+
+.messages {
+  padding: 10px;
+}
+.dialog {
+  color: white;
+  padding: 12px;
+  font-size: 20px;
+}
