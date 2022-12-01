@@ -4,7 +4,7 @@ import s from "./Post.module.scss";
 function Post(props) {
   return (
     <>
-    {props.message}
+      {props.message}
       <div className={s.item}>Post</div>
       {/* <div className={s.item}>Post</div> */}
     </>

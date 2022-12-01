@@ -2,16 +2,16 @@ import React from "react";
 import s from "./MyPost.module.scss";
 import Post from "./Post/Post";
 
-function MyPost() {
-  let post = [
-    { message: "Hi,My name Farid///its props", id: 1 },
-    { message: "my favorite hobbi is writing code//its props", id: 2 },
-    { message: "Marketing, SEO, Veb-sayt", id: 3 },
-    { message: "Flegri.az", id: 4 },
+function MyPost(props) {
+  // let posts = [
+  //   { message: "Hi,My name Farid///its props", id: 1 },
+  //   { message: "my favorite hobbi is writing code//its props", id: 2 },
+  //   { message: "Marketing, SEO, Veb-sayt", id: 3 },
+  //   { message: "Flegri.az", id: 4 },
 
-  ];
+  // ];
 
-  let postElements = post.map((p) => <Post message={p.message} />);
+  let postElements = props.posts.map( p => <Post  message={p.message} />);
 
   return (
     <div className={s.mypost}>
