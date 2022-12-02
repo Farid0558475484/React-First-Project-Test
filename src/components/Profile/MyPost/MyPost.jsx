@@ -1,3 +1,4 @@
+import { logDOM } from "@testing-library/react";
 import React from "react";
 import s from "./MyPost.module.scss";
 import Post from "./Post/Post";
@@ -10,8 +11,9 @@ function MyPost(props) {
   //   { message: "Flegri.az", id: 4 },
 
   // ];
+  console.log("props in MyPost", props);
 
-  let postElements = props.posts.map( p => <Post  message={p.message} />);
+  let postElements = props.state.map( p => <Post  message={p.message} />);
 
   return (
     <div className={s.mypost}>

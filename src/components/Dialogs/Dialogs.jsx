@@ -42,12 +42,12 @@ function Dialogs(props) {
   // ];
 
 
-  let dialogsElements = props.dialogsData.map((d) => (
+  let dialogsElements = props.state.dialogsData.map((d) => (
     <DialogItem name={d.name} id={d.id} />
   ));
 
 
-  let messagesElements = props.messagesData.map((m) => (
+  let messagesElements = props.state.messagesData.map((m) => (
     <Message message={m.message} id={m.id} />
   ));
 
