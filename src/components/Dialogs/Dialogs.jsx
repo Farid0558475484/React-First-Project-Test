@@ -12,7 +12,9 @@ const DialogItem = (props) => {
 };
 
 const Message = (props) => {
+  
   return <div className={s.dialog}>{props.message}</div>;
+  
 };
 
 function Dialogs(props) {
@@ -50,6 +52,7 @@ function Dialogs(props) {
   let messagesElements = props.state.messagesData.map((m) => (
     <Message message={m.message} id={m.id} />
   ));
+
 
   // [
   //   <Message message={messagesData[0].message} id={messagesData[0].id} />,

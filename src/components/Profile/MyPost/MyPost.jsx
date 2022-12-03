@@ -17,8 +17,9 @@ function MyPost(props) {
   let newPostElement = React.createRef();
 
   const addPost = () => {
+    
     let text = newPostElement.current.value;
-    alert(text);
+    props.addPost(text);
   }
 
     const addSign = () => {
