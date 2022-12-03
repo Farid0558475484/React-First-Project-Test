@@ -11,16 +11,27 @@ function MyPost(props) {
   //   { message: "Flegri.az", id: 4 },
 
   // ];
-  console.log("props in MyPost", props);
+
 
   let postElements = props.state.map( p => <Post  message={p.message} />);
+  let newPostElement = React.createRef();
+
+  const addPost = () => {
+    let text = newPostElement.current.value;
+    alert(text);
+  }
+
+    const addSign = () => {
+      let text =newPostElement.current.value
+      alert(text);
+    }
 
   return (
     <div className={s.mypost}>
-      <textarea></textarea>
+      <textarea ref={newPostElement}></textarea>
       <div>
-        <button>Add me</button>
-        <button>Sign in</button>
+        <button  onClick={addPost}>Add me</button>
+        <button onClick={addSign}>Sign in</button>
       </div>
       <p className={s.item}>Sagol</p>
       
