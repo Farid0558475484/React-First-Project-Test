@@ -1,7 +1,10 @@
+
+import {rerenderEntireTree} from "../render";
+
 let state = {
 
   profilePage: {
-    
+
     posts: [
       { message: "Hi,My name Farid///its props", id: 1 },
       { message: "my favorite hobbi is writing code//its props", id: 2 },
@@ -35,7 +38,8 @@ export let addPost = (postMessage) => {
     message: postMessage,
   };
   state.profilePage.posts.push(newPost);
-  
-}
+  rerenderEntireTree(state);
+
+};
 
 export default state;
