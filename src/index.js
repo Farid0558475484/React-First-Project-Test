@@ -6,8 +6,8 @@ import App from "./App";
 import { addPost } from "./redux/state";
 import { updateNewPostText } from "./redux/state";
 
+const root = ReactDOM.createRoot(document.getElementById("root"));
 let rerenderEntireTree = (state) => {
-  const root = ReactDOM.createRoot(document.getElementById("root"));
   root.render(
     <React.StrictMode>
       <App
