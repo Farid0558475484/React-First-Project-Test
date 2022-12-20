@@ -8,7 +8,6 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-
 function App(props) {
   // console.log("hjg", props);
   return (
@@ -23,9 +22,7 @@ function App(props) {
               element={
                 <Profile
                   profilePage={props.state.profilePage.posts}
-                  addPost={props.addPost}
-                  newPostText={props.state.profilePage.newPostText}
-                  updateNewPostText={props.updateNewPostText}
+                  dispatch={props.dispatch}
                 />
               }
             />

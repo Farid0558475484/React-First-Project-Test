@@ -9,7 +9,8 @@ function MyPost(props) {
   let newPostElement = React.createRef();
 
   let addPost = () => {
-    props.addPost();
+    const action = { type: "ADD-POST" };
+    props.dispatch(action);
   };
 
   let addSign = () => {
@@ -17,9 +18,10 @@ function MyPost(props) {
     alert(text);
   };
 
-  let onPostChange = (e) => {
-    let text = e.target.value;
-    props.updateNewPostText(text);
+  let onPostChange = () => {
+    let text = newPostElement.current.value;
+    const action = { type: "UPDATE-NEW-POST-TEXT", newText: text };
+    props.dispatch(action);
   };
 
   return (
