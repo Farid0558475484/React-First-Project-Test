@@ -1,16 +1,19 @@
+// import { rerenderEntireTree } from "../render";
 
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree = () => {
+  console.log("dqwd");
+};
 
 let state = {
-
   profilePage: {
-
     posts: [
       { message: "Hi,My name Farid///its props", id: 1 },
       { message: "my favorite hobbi is writing code//its props", id: 2 },
       { message: "Marketing, SEO, Veb-sayt", id: 3 },
       { message: "Flegri.az", id: 4 },
     ],
+
+    newPostText: "Farid",
   },
 
   messagePage: {
@@ -31,15 +34,29 @@ let state = {
     ],
   },
 };
+window.state = state;
 
-export let addPost = (postMessage) => {
+export const addPost = () => {
   let newPost = {
     id: 5,
-    message: postMessage,
+    message: state.profilePage.newPostText,
   };
   state.profilePage.posts.push(newPost);
+  state.profilePage.newPostText = "";
   rerenderEntireTree(state);
+};
 
+export const updateNewPostText = (newText) => {
+  // console.log("newText", newText);
+  state.profilePage.newPostText = newText;
+
+  // this.setState({ newPostText: newText });
+
+  rerenderEntireTree(state);
+};
+
+export const subscribe = (observer) => {
+  rerenderEntireTree = observer;
 };
 
 export default state;

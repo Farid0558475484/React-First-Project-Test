@@ -9,6 +9,7 @@ import Settings from "./components/Settings/Settings";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App(props) {
+  console.log("hjg", props);
   return (
     <BrowserRouter>
       <div className="app-wrapper">
@@ -18,7 +19,14 @@ function App(props) {
           <Routes>
             <Route
               path="/profile"
-              element={<Profile state={props.state.profilePage.posts} addPost={props.addPost} />}
+              element={
+                <Profile
+                  profilePage={props.state.profilePage.posts}
+                  addPost={props.addPost}
+                  newPostText={props.state.profilePage.newPostText}
+                  updateNewPostText={props.updateNewPostText}
+                />
+              }
             />
             <Route
               path="/dialogs"
