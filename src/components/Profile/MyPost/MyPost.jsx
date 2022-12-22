@@ -1,6 +1,9 @@
 import React from "react";
 import s from "./MyPost.module.scss";
 import Post from "./Post/Post";
+import { addSignActionCreator, updateNewPostTextActionCreator } from "../../../redux/state";
+
+
 
 function MyPost(props) {
   let postElements = props.state.map((p, index) => (
@@ -9,8 +12,8 @@ function MyPost(props) {
   let newPostElement = React.createRef();
 
   let addPost = () => {
-    const action = { type: "ADD-POST" };
-    props.dispatch(action);
+    // const action = { type: "ADD-POST" };
+    props.dispatch(addSignActionCreator());
   };
 
   let addSign = () => {
@@ -20,8 +23,8 @@ function MyPost(props) {
 
   let onPostChange = () => {
     let text = newPostElement.current.value;
-    const action = { type: "UPDATE-NEW-POST-TEXT", newText: text };
-    props.dispatch(action);
+    // const action = { type: "UPDATE-NEW-POST-TEXT", newText: text };
+    props.dispatch(newFunction(text));
   };
 
   return (
@@ -42,6 +45,10 @@ function MyPost(props) {
       <Post message={postData[1].message} /> */}
     </div>
   );
+
+  function newFunction(text) {
+    return updateNewPostTextActionCreator(text);
+  }
 }
 
 export default MyPost;
