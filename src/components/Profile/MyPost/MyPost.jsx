@@ -33,6 +33,7 @@ function MyPost(props) {
     
       
       <textarea
+      placeholder="Send your "
         onChange={(e) => onPostChange(e)}
         ref={newPostElement}
         value={props.newPostText}

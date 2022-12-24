@@ -8,8 +8,6 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-
-
 function App(props) {
   // console.log("hjg", props);
   return (
@@ -23,15 +21,13 @@ function App(props) {
               path="/profile"
               element={
                 <Profile
+                
                   profilePage={props.state.profilePage.posts}
                   dispatch={props.dispatch}
                 />
               }
             />
-            <Route
-              path="/dialogs"
-              element={<Dialogs state={props.state.messagePage} />}
-            />
+            <Route path="/dialogs" element={<Dialogs store={props.store} />} />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />
             <Route path="/settings" element={<Settings />} />
