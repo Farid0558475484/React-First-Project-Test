@@ -4,8 +4,8 @@ import Post from "./Post/Post";
 import { addSignActionCreator, updateNewPostTextActionCreator } from "../../../redux/state";
 
 
-
 function MyPost(props) {
+
   let postElements = props.state.map((p, index) => (
     <Post message={p.message} key={index} />
   ));
@@ -29,6 +29,9 @@ function MyPost(props) {
 
   return (
     <div className={s.mypost}>
+
+    
+      
       <textarea
         onChange={(e) => onPostChange(e)}
         ref={newPostElement}

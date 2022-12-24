@@ -8,6 +8,8 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+
+
 function App(props) {
   // console.log("hjg", props);
   return (
