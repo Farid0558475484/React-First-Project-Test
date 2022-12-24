@@ -65,14 +65,17 @@ function Dialogs(props) {
   // ];
 
   const onSendMessageClick = () => {
-    props.state.dispatch(sendMessageCreator());
-    console.log("1");
+    debugger;
+  
+    props.store.dispatch(sendMessageCreator());
+
+   
   };
 
   const onNewMessageChange = (e) => {
     let body = e.target.value;
-    props.state.dispatch(updateNewMessageBodyCreator(body));
-    console.log("2");
+    props.store.dispatch(updateNewMessageBodyCreator(body));
+  
   };
 
   return (

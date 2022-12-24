@@ -21,7 +21,6 @@ function App(props) {
               path="/profile"
               element={
                 <Profile
-                
                   profilePage={props.state.profilePage.posts}
                   dispatch={props.dispatch}
                 />
