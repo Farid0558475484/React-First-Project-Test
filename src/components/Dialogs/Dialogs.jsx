@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Dialogs.module.scss";
-import { updateNewMessageBodyCreator } from "../../redux/state";
-import { sendMessageCreator } from "../../redux/state";
+import { updateNewMessageBodyCreator } from "../../redux/dialogs-reducer";
+import { sendMessageCreator } from "../../redux/dialogs-reducer";
 
 
 const DialogItem = (props) => {
@@ -65,7 +65,7 @@ function Dialogs(props) {
   // ];
 
   const onSendMessageClick = () => {
-    debugger;
+
   
     props.store.dispatch(sendMessageCreator());
 
