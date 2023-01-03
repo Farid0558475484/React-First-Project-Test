@@ -1,12 +1,10 @@
 import React from "react";
 import s from "./MyPost.module.scss";
 import Post from "./Post/Post";
-import {
-  addSignActionCreator,
-  updateNewPostTextActionCreator,
-} from "../../../redux/profile-reducer";
 
 function MyPost(props) {
+
+
   let postElements = props.state.map((p, index) => (
     <Post message={p.message} key={index} />
   ));
@@ -17,6 +15,7 @@ function MyPost(props) {
     props.addPost();
   };
 
+  
   // let addSign = () => {
   //   let text = newPostElement.current.value;
   //   alert(text);

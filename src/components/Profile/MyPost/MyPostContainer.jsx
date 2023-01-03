@@ -3,8 +3,14 @@ import {
   addSignActionCreator,
   updateNewPostTextActionCreator,
 } from "../../../redux/profile-reducer";
+import MyPost from "./MyPost";
 
 function MyPostContainer(props) {
+
+  let state = props.store.getState().profilePage;
+
+
+
   let addPost = () => {
     props.store.dispatch(addSignActionCreator());
   };
@@ -23,7 +29,8 @@ function MyPostContainer(props) {
     <MyPost
       updateNewPostText={onPostChange}
       addPost={addPost}
-      posts={props.posts}
+      posts={state.profilePage.posts}
+      newPostText={state.profilePage.newPostText}
     />
   );
 }
