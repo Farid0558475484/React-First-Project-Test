@@ -16,10 +16,6 @@ function MyPost(props) {
   };
 
   
-  // let addSign = () => {
-  //   let text = newPostElement.current.value;
-  //   alert(text);
-  // };
 
   let onPostChange = () => {
     let text = newPostElement.current.value;

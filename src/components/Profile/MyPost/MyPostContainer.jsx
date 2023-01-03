@@ -3,35 +3,34 @@ import {
   addSignActionCreator,
   updateNewPostTextActionCreator,
 } from "../../../redux/profile-reducer";
+import StoreContext from "../../../StoreContext";
 import MyPost from "./MyPost";
 
-function MyPostContainer(props) {
-
-  let state = props.store.getState().profilePage;
-
-
-
-  let addPost = () => {
-    props.store.dispatch(addSignActionCreator());
-  };
-
-  // let addSign = () => {
-  //   let text = newPostElement.current.value;
-  //   alert(text);
-  // };
-
-  let onPostChange = (text) => {
-    let action = updateNewPostTextActionCreator(text);
-    props.store.dispatch(action);
-  };
-
+function MyPostContainer() {
   return (
-    <MyPost
-      updateNewPostText={onPostChange}
-      addPost={addPost}
-      posts={state.profilePage.posts}
-      newPostText={state.profilePage.newPostText}
-    />
+    <StoreContext.Consumer>
+      {(store) => {
+        let state = store.getState().profilePage;
+
+        let addPost = () => {
+          store.dispatch(addSignActionCreator());
+        };
+
+        let onPostChange = (text) => {
+          let action = updateNewPostTextActionCreator(text);
+          store.dispatch(action);
+        };
+        return (
+          <MyPost
+            updateNewPostText={onPostChange}
+            addPost={addPost}
+            
+            posts={state.profilePage.posts}
+            newPostText={state.profilePage.newPostText}
+          />
+        );
+      }}
+    </StoreContext.Consumer>
   );
 }
 
