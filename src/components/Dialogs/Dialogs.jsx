@@ -4,7 +4,6 @@ import s from "./Dialogs.module.scss";
 import { updateNewMessageBodyCreator } from "../../redux/dialogs-reducer";
 import { sendMessageCreator } from "../../redux/dialogs-reducer";
 
-
 const DialogItem = (props) => {
   let path = "/dialog/" + props.id;
   return (
@@ -15,8 +14,6 @@ const DialogItem = (props) => {
 };
 
 const Message = (props) => {
-
-
   return <div className={s.dialog}>{props.message}</div>;
 };
 
@@ -48,12 +45,12 @@ function Dialogs(props) {
 
   let state = props.store.getState().dialogsPage;
 
-  let dialogsElements = state.dialogs.map((d) => (
-    <DialogItem name={d.name} id={d.id} />
+  let dialogsElements = state.dialogs.map((d, index) => (
+    <DialogItem key={`${index}-diologs`} name={d.name} id={d.id} />
   ));
 
-  let messagesElements = state.messages.map((m) => (
-    <Message message={m.message} id={m.id} />
+  let messagesElements = state.messages.map((m, index) => (
+    <Message key={`${index}-messages`} message={m.message} id={m.id} />
   ));
 
   let newMessageBody = state.newMessageBody;
@@ -65,17 +62,12 @@ function Dialogs(props) {
   // ];
 
   const onSendMessageClick = () => {
-
-  
     props.store.dispatch(sendMessageCreator());
-
-   
   };
 
   const onNewMessageChange = (e) => {
     let body = e.target.value;
     props.store.dispatch(updateNewMessageBodyCreator(body));
-  
   };
 
   return (
@@ -88,7 +80,6 @@ function Dialogs(props) {
             <textarea
               placeholder="Send your message"
               value={newMessageBody}
-              
               onChange={onNewMessageChange}
             ></textarea>
           </div>
