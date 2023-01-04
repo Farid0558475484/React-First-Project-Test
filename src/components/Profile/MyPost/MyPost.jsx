@@ -5,9 +5,11 @@ import Post from "./Post/Post";
 function MyPost(props) {
 
 
-  let postElements = props.state.map((p, index) => (
-    <Post message={p.message} key={index} />
+
+  let postElements = props.posts.map((p) => (
+    <Post message={p.message} like={p.like} />
   ));
+  
   let newPostElement = React.createRef();
 
   let onAddPost = () => {

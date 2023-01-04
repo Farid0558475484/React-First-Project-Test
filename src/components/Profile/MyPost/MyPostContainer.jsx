@@ -3,35 +3,32 @@ import {
   addSignActionCreator,
   updateNewPostTextActionCreator,
 } from "../../../redux/profile-reducer";
-import StoreContext from "../../../StoreContext";
 import MyPost from "./MyPost";
+import {connect} from "react-redux";
 
-function MyPostContainer() {
-  return (
-    <StoreContext.Consumer>
-      {(store) => {
-        let state = store.getState().profilePage;
 
-        let addPost = () => {
-          store.dispatch(addSignActionCreator());
-        };
 
-        let onPostChange = (text) => {
-          let action = updateNewPostTextActionCreator(text);
-          store.dispatch(action);
-        };
-        return (
-          <MyPost
-            updateNewPostText={onPostChange}
-            addPost={addPost}
-            
-            posts={state.profilePage.posts}
-            newPostText={state.profilePage.newPostText}
-          />
-        );
-      }}
-    </StoreContext.Consumer>
-  );
-}
+
+const mapStateToProps = (state) => {
+  return {
+    posts: state.profilePage.posts,
+    newPostText: state.profilePage.newPostText,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateNewPostText: (text) => {
+      let action = updateNewPostTextActionCreator(text);
+      dispatch(action);
+    },
+
+    addPost: () => {
+      dispatch(addSignActionCreator());
+    },
+  };
+};
+
+const MyPostContainer = connect(mapStateToProps, mapDispatchToProps)(MyPost);
 
 export default MyPostContainer;
