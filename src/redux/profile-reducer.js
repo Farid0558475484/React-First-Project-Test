@@ -3,10 +3,10 @@ const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 
 let initialState = {
   posts: [
-    { message: "Hi,My name Farid///its props", id: 1 },
-    { message: "my favorite hobbi is writing code//its props", id: 2 },
-    { message: "Marketing, SEO, Veb-sayt", id: 3 },
-    { message: "Flegri.az", id: 4 },
+    { message: "Hi,My name Farid", id: 1 },
+    { message: "my favorite hobbi is writing code", id: 2 },
+    { message: "I like React", id: 3 },
+    { message: "I use React-Redux", id: 4 },
   ],
 
   newPostText: "",

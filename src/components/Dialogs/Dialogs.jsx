@@ -2,9 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Dialogs.module.scss";
 
-
-
-
 const DialogItem = (props) => {
   let path = "/dialog/" + props.id;
   return (
@@ -19,8 +16,6 @@ const Message = (props) => {
 };
 
 function Dialogs(props) {
-
-
   let state = props.dialogsPage;
 
   let dialogsElements = state.dialogs.map((d) => (
@@ -28,23 +23,21 @@ function Dialogs(props) {
   ));
 
   let messagesElements = state.messages.map((m) => (
-    <Message key={m.id} message={m.message} id={m.id} />
+    <Message key={m.id} message={m.message} id={m.id++} />
   ));
 
   let newMessageBody = state.newMessageBody;
-
-
 
   const onSendMessageClick = () => {
     props.sendMessage();
   };
 
   const onNewMessageChange = (e) => {
-
     let body = e.target.value;
-    // props.store.dispatch(updateNewMessageBodyCreator(body));
-    props.updateNewMessageBodyCreator(body);
+    props.updateNewMessageBody(body);
   };
+
+
 
   return (
     <div className={s.dialogs}>

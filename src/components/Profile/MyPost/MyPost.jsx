@@ -7,7 +7,7 @@ function MyPost(props) {
 
 
   let postElements = props.posts.map((p) => (
-    <Post message={p.message} like={p.like} key={p.id}/>
+    <Post message={p.message} like={p.like} key={p.id++}/>
   ));
   
   let newPostElement = React.createRef();
@@ -38,7 +38,7 @@ function MyPost(props) {
         <button >Sign in</button>
       </div>
       <p className={s.item}>Sagol</p>
-      {postElements}
+      {postElements } 
     </div>
   );
 }
