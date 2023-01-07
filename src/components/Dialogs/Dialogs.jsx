@@ -23,12 +23,12 @@ function Dialogs(props) {
 
   let state = props.dialogsPage;
 
-  let dialogsElements = state.dialogs.map((d, index) => (
-    <DialogItem key={`${index}-diologs`} name={d.name} id={d.id} />
+  let dialogsElements = state.dialogs.map((d) => (
+    <DialogItem key={d.id} name={d.name} id={d.id} />
   ));
 
-  let messagesElements = state.messages.map((m, index) => (
-    <Message key={`${index}-messages`} message={m.message} id={m.id} />
+  let messagesElements = state.messages.map((m) => (
+    <Message key={m.id} message={m.message} id={m.id} />
   ));
 
   let newMessageBody = state.newMessageBody;
@@ -40,6 +40,7 @@ function Dialogs(props) {
   };
 
   const onNewMessageChange = (e) => {
+
     let body = e.target.value;
     // props.store.dispatch(updateNewMessageBodyCreator(body));
     props.updateNewMessageBodyCreator(body);
