@@ -19,19 +19,25 @@ const profilReducer = (state = initialState, action) => {
         id: 5,
         message: state.newPostText,
       };
-      state.posts.push(newPost);
-      state.newPostText = "";
+      let stateCopy = { ...state };
+      stateCopy.posts = [...state.posts];
+      stateCopy.posts.push(newPost);
+      stateCopy.newPostText = "";
       console.log("state", state);
-      return state;
+      return stateCopy;
 
-    case UPDATE_NEW_POST_TEXT:
+    case UPDATE_NEW_POST_TEXT:{
+      let stateCopy = { ...state };
+
       state.newPostText = action.newText;
-      return state;
-
+      return stateCopy;
+    }
     default:
       return state;
   }
 };
+
+
 
 export const addSignActionCreator = () => ({ type: ADD_POST });
 
