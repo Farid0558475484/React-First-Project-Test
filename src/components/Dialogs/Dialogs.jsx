@@ -29,6 +29,7 @@ function Dialogs(props) {
   let newMessageBody = state.newMessageBody;
 
   const onSendMessageClick = () => {
+    // if(props.newMessageBody === "") return;
     props.sendMessage();
   };
 
