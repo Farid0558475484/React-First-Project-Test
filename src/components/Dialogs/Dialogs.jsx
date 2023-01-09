@@ -17,6 +17,7 @@ const Message = (props) => {
 
 function Dialogs(props) {
   let state = props.dialogsPage;
+  let newMessageBody = state.newMessageBody;
 
   let dialogsElements = state.dialogs.map((d) => (
     <DialogItem key={d.id} name={d.name} id={d.id} />
@@ -26,10 +27,8 @@ function Dialogs(props) {
     <Message key={m.id} message={m.message} id={m.id++} />
   ));
 
-  let newMessageBody = state.newMessageBody;
-
   const onSendMessageClick = () => {
-    // if(props.newMessageBody === "") return;
+    if (newMessageBody === "") return;
     props.sendMessage();
   };
 
@@ -37,8 +36,6 @@ function Dialogs(props) {
     let body = e.target.value;
     props.updateNewMessageBody(body);
   };
-
-
 
   return (
     <div className={s.dialogs}>
