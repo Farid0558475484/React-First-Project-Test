@@ -8,7 +8,7 @@ let initialState = {
   users: [], //массив пользователей
   pageSize: 5, //количество пользователей на странице
   totalUsersCount: 1, //общее количество пользователей
-  currentPage: 3, //текущая страница
+  currentPage: 1, //текущая страница
   
 };
 
@@ -58,7 +58,7 @@ const usersReducer = (state = initialState, action) => {
       return state;
   }
 };
-debugger;
+
 export const followAC = (userId) => ({ type: FOLLOW, userId });
 export const unfollowAC = (userId) => ({ type: UNFOLLOW, userId });
 export const setUsersAC = (users) => ({ type: SET_USERS, users }); 
