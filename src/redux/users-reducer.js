@@ -9,7 +9,7 @@ let initialState = {
   users: [], //массив пользователей
   pageSize: 5, //количество пользователей на странице
   totalUsersCount: 1, //общее количество пользователей
-  currentPage: 2, //текущая страница
+  currentPage: 1, //текущая страница
   isFetching:true,
   
 };
