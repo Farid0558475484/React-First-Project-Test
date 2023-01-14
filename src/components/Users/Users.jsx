@@ -5,7 +5,6 @@ import userPhoto from "./../../img/user.png";
 
 
 const Users = (props) => {
-
     let pagesCount = Math.ceil(
         props.totalUsersCount / props.pageSize //округляем в большую сторону
       );
@@ -19,12 +18,14 @@ const Users = (props) => {
       }
 
       return (
+        
         <div>
           
           <div className={styles.itemCount}>
             
             {pages.map((p) => {
               return (
+                
                 <span
                   key={p}
                   className={props.currentPage === p ? styles.selectedPage : ''}
