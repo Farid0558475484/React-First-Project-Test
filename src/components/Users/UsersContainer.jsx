@@ -16,16 +16,16 @@ import Preloader from "../Common/Preloader/Preloader";
 class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.toggleIsFetching(true);
-    axios
-
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
+    axios.get(
+        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
+        {
+          withCredentials: true,
+        }
       )
       .then((response) => {
         this.props.toggleIsFetching(false);
-        //получаем ответ от сервера
-        this.props.setUsers(response.data.items); //передаем в пропсы массив пользователей
-        this.props.setTotalUsersCount(response.data.totalCount); //передаем в пропсы общее количество пользователей
+        this.props.setUsers(response.data.items); 
+        this.props.setTotalUsersCount(response.data.totalCount); 
       }); //получаем данные с сервера
   }
 
@@ -34,7 +34,10 @@ class UsersContainer extends React.Component {
     this.props.toggleIsFetching(true);
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`
+        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
+        {
+          withCredentials: true,
+        }
       )
       .then((response) => {
         this.props.toggleIsFetching(false);
