@@ -2,6 +2,7 @@ import dialogsReducer from "./dialogs-reducer";
 import profilReducer from "./profile-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import usersReducer from "./users-reducer";
+import authReducer from "./auth-reducer";
 
 
 
@@ -29,6 +30,10 @@ let store = {
     this._state.sidebar = sidebarReducer(this._state.sidebar, action);
     this._state.usersPage = usersReducer(this._state.usersPage, action);
     this._callSubscriber(this._state);
+    this._state.auth= authReducer(this._state.auth, action);
+
+
+
   },
 };
 

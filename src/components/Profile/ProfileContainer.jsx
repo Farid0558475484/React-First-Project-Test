@@ -3,7 +3,6 @@ import React from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux";
 import { setUserProfile } from "../../redux/profile-reducer";
-// import { withRouter } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 export function withRouter(Children) {
