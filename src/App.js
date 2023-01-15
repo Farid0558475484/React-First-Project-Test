@@ -9,7 +9,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 
-
 function App() {
   return (
     <BrowserRouter>
@@ -18,7 +17,10 @@ function App() {
         <Navbar />
         <div className="app-wrapper-content">
           <Routes>
-            <Route path="/profile/*" element={<ProfileContainer />} />
+            {/* <Route path="/profile" element={<ProfileContainer />} /> */}
+            <Route path="/profile" element={<ProfileContainer />}>
+              <Route path=":userId" element={<ProfileContainer />} />
+            </Route>
             <Route path="/dialogs" element={<DialogsContainer />} />
             <Route path="/users" element={<UsersContainer />} />
             <Route path="/news" element={<News />} />
