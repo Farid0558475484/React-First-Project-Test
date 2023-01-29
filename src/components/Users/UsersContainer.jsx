@@ -1,3 +1,4 @@
+import React from "react";
 import { connect } from "react-redux";
 import {
   follow,
@@ -7,60 +8,55 @@ import {
   setTotalUsersCount,
   toggleIsFetching,
 } from "../../redux/users-reducer";
-import axios from "axios";
+// import axios from "axios";
 import Users from "./Users";
-import React from "react";
 import Preloader from "../Common/Preloader/Preloader";
+import { usersAPI } from "../../api/api";
+
+
+
 
 
 class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.toggleIsFetching(true);
-    axios.get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(response.data.items); 
-        this.props.setTotalUsersCount(response.data.totalCount); 
-      }); //получаем данные с сервера
+
+    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
+      this.props.toggleIsFetching(false);
+      this.props.setUsers(data.items);
+      this.props.setTotalUsersCount(data.totalCount);
+    }); //получаем данные с сервера
   }
 
   onChangePage = (pageNumber) => {
     this.props.setCurrentPage(pageNumber); //передаем в пропсы номер страницы
     this.props.toggleIsFetching(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(response.data.items); //передаем в пропсы массив пользователей
-      }); //получаем данные с сервера
+    usersAPI.getUsers(pageNumber, this.props.pageSize).then((data) => {
+      this.props.toggleIsFetching(false);
+      this.props.setUsers(data.items); //передаем в пропсы массив пользователей
+    }); //получаем данные с сервера
   };
   render() {
     return (
       <>
-        {this.props.isFetching ? <Preloader /> :
-        <Users
-          totalUsersCount={this.props.totalUsersCount}
-          pageSize={this.props.pageSize}
-          currentPage={this.props.currentPage}
-          onChangePage={this.onChangePage}
-          unfollow={this.props.unfollow}
-          follow={this.props.follow}
-          users={this.props.users}
-        />}
+        {this.props.isFetching ? (
+          <Preloader />
+        ) : (
+          <Users
+            totalUsersCount={this.props.totalUsersCount}
+            pageSize={this.props.pageSize}
+            currentPage={this.props.currentPage}
+            onChangePage={this.onChangePage}
+            unfollow={this.props.unfollow}
+            follow={this.props.follow}
+            users={this.props.users}
+          />
+        )}
       </>
     );
   }
 }
+import { getUsers } from "../../api/api";
 let mapStateToProps = (state) => {
   return {
     users: state.usersPage.users, //передаем в пропсы массив пользователей
@@ -94,4 +90,11 @@ let mapStateToProps = (state) => {
 //   };
 // };
 
-export default connect(mapStateToProps,{follow,unfollow,setUsers,setCurrentPage,setTotalUsersCount,toggleIsFetching })(UsersContainer);
+export default connect(mapStateToProps, {
+  follow,
+  unfollow,
+  setUsers,
+  setCurrentPage,
+  setTotalUsersCount,
+  toggleIsFetching,
+})(UsersContainer);
