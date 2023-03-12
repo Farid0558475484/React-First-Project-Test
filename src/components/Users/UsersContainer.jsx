@@ -1,4 +1,5 @@
 import React from "react";
+// import axios from "axios";
 import { connect } from "react-redux";
 import {
   follow,
@@ -8,30 +9,31 @@ import {
   setTotalUsersCount,
   toggleIsFetching,
 } from "../../redux/users-reducer";
-// import axios from "axios";
+
+
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import { usersAPI } from "../../api/api";
-
-
-
 
 
 class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.toggleIsFetching(true);
 
-    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
-      this.props.toggleIsFetching(false);
-      this.props.setUsers(data.items);
-      this.props.setTotalUsersCount(data.totalCount);
-    }); //получаем данные с сервера
+
+    usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+      .then((data) => {
+        this.props.toggleIsFetching(false);
+        this.props.setUsers(data.items);
+        this.props.setTotalUsersCount(data.totalCount);
+      }); //получаем данные с сервера
   }
 
   onChangePage = (pageNumber) => {
     this.props.setCurrentPage(pageNumber); //передаем в пропсы номер страницы
     this.props.toggleIsFetching(true);
-    usersAPI.getUsers(pageNumber, this.props.pageSize).then((data) => {
+
+    usersAPI.getUsers2(pageNumber, this.props.pageSize).then((data) => {
       this.props.toggleIsFetching(false);
       this.props.setUsers(data.items); //передаем в пропсы массив пользователей
     }); //получаем данные с сервера
@@ -56,7 +58,7 @@ class UsersContainer extends React.Component {
     );
   }
 }
-import { getUsers } from "../../api/api";
+// import { getUsers } from "../../api/api";
 let mapStateToProps = (state) => {
   return {
     users: state.usersPage.users, //передаем в пропсы массив пользователей
@@ -97,4 +99,5 @@ export default connect(mapStateToProps, {
   setCurrentPage,
   setTotalUsersCount,
   toggleIsFetching,
+
 })(UsersContainer);
