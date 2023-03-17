@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/Login/Login";
 
 function App() {
   return (
@@ -17,10 +18,10 @@ function App() {
         <Navbar />
         <div className="app-wrapper-content">
           <Routes>
-            {/* <Route path="/profile" element={<ProfileContainer />} /> */}
             <Route path="/profile" element={<ProfileContainer />}>
               <Route path=":userId" element={<ProfileContainer />} />
             </Route>
+            <Route path="/login"  element={ <Login />} />
             <Route path="/dialogs" element={<DialogsContainer />} />
             <Route path="/users" element={<UsersContainer />} />
             <Route path="/news" element={<News />} />

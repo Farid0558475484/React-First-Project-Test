@@ -1,5 +1,4 @@
 import React from "react";
-// import axios from "axios";
 import { connect } from "react-redux";
 import {
   follow,
@@ -11,7 +10,7 @@ import {
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 
-// import { usersAPI } from "../../api/api";
+
 
 class UsersContainer extends React.Component {
   componentDidMount() {
