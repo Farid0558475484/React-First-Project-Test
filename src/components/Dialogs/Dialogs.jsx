@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Dialogs.module.scss";
-import { Navigate } from "react-router-dom";
+
 
 const DialogItem = (props) => {
   let path = "/dialog/" + props.id;
@@ -38,7 +38,7 @@ function Dialogs(props) {
     props.updateNewMessageBody(body);
   };
 
-if (!props.isAuth) return <Navigate to={"/login"} />;
+// if (!props.isAuth) return <Navigate to={"/login"} />;
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}> {dialogsElements}</div>
