@@ -14,7 +14,7 @@ const Users = (props) => {
   }
 
   if (pages.length > 10) {
-    pages = pages.slice(props.currentPage - 1, props.currentPage + 9);
+    pages = pages.slice(props.currentPage - 1, props.currentPage + 5);
   }
 
   return (
@@ -48,9 +48,13 @@ const Users = (props) => {
               </NavLink>
             </div>
             <div>
-              {u.followed ? (
+              {u.followed ?
+               (
                 <button
+                disabled={props.followingInProgress.some(id => id === u.id)}
+
                   onClick={() => {
+                    props.toggleFollowingProgress(true, u.id);
                     axios
                       .delete(
                         `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
@@ -65,14 +69,19 @@ const Users = (props) => {
                         if (response.data.resultCode === 0) {
                           props.unfollow(u.id);
                         }
+                        props.toggleFollowingProgress(false, u.id);
                       });
+
+       
                   }}
                 >
                   Unfollow
                 </button>
               ) : (
                 <button
+                disabled={props.followingInProgress.some(id => id === u.id)}
                   onClick={() => {
+                    props.toggleFollowingProgress(true, u.id);
                     axios
                       .post(
                         `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
@@ -88,6 +97,7 @@ const Users = (props) => {
                         if (response.data.resultCode === 0) {
                           props.follow(u.id);
                         }
+                        props.toggleFollowingProgress(false, u.id);
                       });
                   }}
                 >
