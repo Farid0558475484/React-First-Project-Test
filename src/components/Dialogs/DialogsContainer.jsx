@@ -8,7 +8,7 @@ import AuthNavigate from "../HOC/AuthNavigate";
 const mapStateToProps = (state) => {
   return {
     dialogsPage: state.dialogsPage,
-    isAuth: state.auth.isAuth,
+  
   };
 };
 

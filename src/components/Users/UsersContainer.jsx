@@ -9,6 +9,8 @@ import {
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
+import AuthNavigate from "../HOC/AuthNavigate";
+
 
 
 
@@ -54,10 +56,12 @@ let mapStateToProps = (state) => {
   };
 };
 
+
+let withNavigate=AuthNavigate(UsersContainer)
 export default connect(mapStateToProps, {
   follow,
   unfollow,
   setCurrentPage,
   toggleFollowingProgress,
   getUsers,
-})(UsersContainer);
+})(withNavigate);

@@ -23,7 +23,6 @@ class ProfileContainer extends React.Component {
   }
 
   render() {
-
     return (
       <>
         <Profile {...this.props} profile={this.props.profile} />
@@ -32,12 +31,12 @@ class ProfileContainer extends React.Component {
   }
 }
 
-const AuthNavigateComponent = AuthNavigate(ProfileContainer)
+let AuthNavigateComponent = AuthNavigate(ProfileContainer);
 
-const mapStateToProps = (state) => {
+
+let mapStateToProps = (state) => {
   return {
     profile: state.profilePage.profile,
-    isAuth: state.auth.isAuth,
   };
 };
 
