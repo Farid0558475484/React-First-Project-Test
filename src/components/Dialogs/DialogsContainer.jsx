@@ -1,19 +1,15 @@
-
 import { updateNewMessageBodyCreator } from "../../redux/dialogs-reducer";
 import { sendMessageCreator } from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import { connect } from "react-redux";
 import AuthNavigate from "../HOC/AuthNavigate";
+import { compose } from "redux";
 
 const mapStateToProps = (state) => {
   return {
     dialogsPage: state.dialogsPage,
-  
   };
 };
-
-
-
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -24,11 +20,9 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(sendMessageCreator());
     },
   };
-
 };
-const AuthNavigateComponent = AuthNavigate(Dialogs)
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthNavigateComponent);
-
-
-export default DialogsContainer;
+export default compose(
+  AuthNavigate,
+  connect(mapStateToProps, mapDispatchToProps)
+)(Dialogs);
