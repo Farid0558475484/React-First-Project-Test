@@ -1,46 +1,56 @@
 import React from "react";
 import s from "./MyPost.module.scss";
 import Post from "./Post/Post";
+import { Formik, Form, Field } from "formik";
 
 function MyPost(props) {
-
-
-
   let postElements = props.posts.map((p) => (
-    <Post message={p.message} like={p.like} key={p.id++}/>
+    <Post message={p.message} like={p.like} key={p.id++} />
   ));
-  
-  let newPostElement = React.createRef();
 
-  let onAddPost = () => {
-    if(props.newPostText === "") return;
-    props.addPost();
+  let onAddPost = (values) => {
+    props.addPost(values.newMessageBody);
   };
-
-  
-
-  let onPostChange = () => {
-    let text = newPostElement.current.value;
-    props.updateNewPostText(text);
-  };
-
 
   return (
     <div className={s.mypost}>
-      <textarea
-        placeholder="Send your "
-        onChange={(e) => onPostChange(e)}
-        ref={newPostElement}
-        value={props.newPostText}
-      />
-      <div>
-        <button onClick={onAddPost}>Add me</button>
-        <button >Sign in</button>
-      </div>
-      <p className={s.item}>Sagol</p>
-      {postElements } 
+      <h3>My post</h3>
+      <AddMessageForm sendMessage={onAddPost} />
+      {postElements}
     </div>
   );
 }
+
+const AddMessageForm = (props) => {
+  let AddNewMessage = (values) => {
+    props.sendMessage(values);
+  };
+
+  return (
+    <Formik
+      initialValues={{
+        newMessageBody: "",
+      }}
+      onSubmit={(values, { resetForm }) => {
+        AddNewMessage(values);
+        resetForm({ newMessageBody: "" });
+      }}
+    >
+      {() => (
+        <Form>
+          <div>
+            <Field
+              name={"newMessageBody"}
+              as={"textarea"}
+              placeholder={"enter text"}
+            />
+          </div>
+
+          <button type={"submit"}>Send</button>
+        </Form>
+      )}
+    </Formik>
+  );
+};
 
 export default MyPost;
