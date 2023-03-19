@@ -1,49 +1,58 @@
 import React from "react";
+import { Formik } from "formik";
 
-function LoginForm(props) {
-  return (
-    <form>
-      <div>
-        <input placeholder={"Login"} />
-      </div>
-      <div>
-        <input placeholder={"Password"} />
-      </div>
-      <div>
-        <input type={"checkbox"} /> remember me
-      </div>
-      <div>
-        <button>Login</button>
-      </div>
-    </form>
-  );
-}
+const LoginForm = (props) => (
+  <div>
+    <h1>Login</h1>
+    <Formik
+      onSubmit={props.handleSubmit}
+      initialValues={{ login: "", password: "" }}
+      validate={(values) => {
+        const errors = {};
+        if (!values.login) {
+          errors.login = "Required";
+        } else if (values.login.length > 18) {
+          errors.login = "Must be 15 characters or less";
+        } else if (values.login.length < 3) {
+          errors.login = "Must be 15 characters or more";
+        }
+        return errors;
+      }}
+    >
+      {({
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting,
+        /* and other goodies */
+      }) => (
+        <form onSubmit={handleSubmit}>
+          <input
+            type="login"
+            name="login"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.login}
+          />
+          {errors.login && touched.login && errors.login}
+          <input
+            type="password"
+            name="password"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.password}
+          />
+          {errors.password && touched.password && errors.password}
+          <button type="submit" disabled={isSubmitting}>
+            Submit
+          </button>
+        </form>
+      )}
+    </Formik>
+  </div>
+);
 
 export default LoginForm;
-
-
-// import { useForm } from "react-hook-form";
-
-// export default function App() {
-//   const { register, handleSubmit, watch, formState: { errors } } = useForm();
-//   const onSubmit = data => console.log(data);
-
-//   console.log(watch("example")); // watch input value by passing the name of it
-
-//   return (
-//     <div>
-//     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-//     <form onSubmit={handleSubmit(onSubmit)}>
-//       {/* register your input into the hook by invoking the "register" function */}
-//       <input defaultValue="test" {...register("example")} />
-      
-//       {/* include validation with required or other standard HTML validation rules */}
-//       <input {...register("exampleRequired", { required: true })} />
-//       {/* errors will return when field validation fails  */}
-//       {errors.exampleRequired && <span>This field is required</span>}
-      
-//       <input type="submit" />
-//     </form>
-//     </div>
-//   );
-// }
