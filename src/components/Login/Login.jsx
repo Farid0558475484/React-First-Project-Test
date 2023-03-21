@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 // import { setLogin } from "../../redux/login-reducer";
 import { connect } from "react-redux";
 import { login } from "../../redux/auth-reducer";
+import { Navigate } from "react-router-dom";
 
 
 
@@ -21,9 +22,9 @@ function Login(props) {
     props.login(formData.login, formData.password, formData.rememberMe);
   };
   if(props.isAuth){
-    return <div>Вы уже авторизованы</div>
+    return  <Navigate to="/profile" />
   }
-  
+
   
   return (
     <div>
@@ -33,5 +34,9 @@ function Login(props) {
     </div>
   );
 }
+const mapStateToProps = (state) => ({
+  isAuth: state.auth.isAuth,
+});
+export default connect(mapStateToProps, { login })(Login);
 
-export default connect(null, {login})(Login);
+
