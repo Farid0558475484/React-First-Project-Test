@@ -2,6 +2,12 @@ import React from "react";
 import s from "./MyPost.module.scss";
 import Post from "./Post/Post";
 import { Formik, Form, Field } from "formik";
+import {
+  required,
+  maxLengthCreator,
+} from "../../../utils/validators/validators";
+
+import { Textarea } from "../../Common/FormsControls/FormsControls";
 
 function MyPost(props) {
   let postElements = props.posts.map((p) => (
@@ -9,6 +15,7 @@ function MyPost(props) {
   ));
 
   let onAddPost = (values) => {
+    // if (values.newMessageBody === "") return;
     props.addPost(values.newMessageBody);
   };
 
@@ -20,6 +27,21 @@ function MyPost(props) {
     </div>
   );
 }
+
+// const maxLength10 = maxLengthCreator(10);
+export const validateTextarea = (value) => {
+  const errors = [];
+  const maxLength = maxLengthCreator(10);
+
+  if (required(value)) {
+    errors.push("Field is required");
+  }
+  if (maxLength(value)) {
+    errors.push(`Max length is ${maxLength}`);
+  }
+
+  return errors;
+};
 
 const AddMessageForm = (props) => {
   let AddNewMessage = (values) => {
@@ -41,8 +63,12 @@ const AddMessageForm = (props) => {
           <div>
             <Field
               name={"newMessageBody"}
-              as={"textarea"}
+              as={Textarea}
               placeholder={"enter text"}
+              validate={(value) => {
+                const errors = validateTextarea(value);
+                return errors.length ? errors : undefined;
+              }}
             />
           </div>
 

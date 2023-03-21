@@ -5,16 +5,14 @@ import { setLogin } from "../../redux/login-reducer";
 
 
 function Login(props) {
-  // const onSubmit = (formData) => {
-  //   console.log(formData);
-  // };
+
 
 
   const dispatch = useDispatch();
 
   const onSubmit = (formData) => {
     dispatch(setLogin(formData.login));
-    console.log(formData);
+    alert(formData);
   };
 
   return (

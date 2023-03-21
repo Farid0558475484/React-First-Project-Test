@@ -1,0 +1,26 @@
+.formController.error input,
+.formController.error textarea {
+  border: 2px solid red;
+}
+
+.formController.error span {
+  border: 2px solid red;
+}
+
+
+
+/* 
+.formController.error textarea,
+.formController.error input[type="text"],
+.formController.error input[type="email"] {
+  border: 2px solid red;
+}
+
+.formController.error span {
+  border: 2px solid red;
+} */
+
+
+/* .formController{
+  border: 2px solid red;
+} */
