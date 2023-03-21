@@ -1,13 +1,24 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
-import { Textarea } from "../../Common/FormsControls/FormsControls";
+import { Input } from "../../Common/FormsControls/FormsControls";
 import {
   required,
   maxLengthCreator,
 } from "../../../utils/validators/validators";
 
-let maxLength10 = maxLengthCreator(10);
+export const validateTextarea = (value) => {
+  const errors = [];
+  const maxLength = maxLengthCreator(5);
 
+  if (required(value)) {
+    errors.push("Field is required");
+  }
+  if (maxLength(value)) {
+    errors.push(`Max length is ${maxLength}`);
+  }
+
+  return errors;
+};
 const AddMessageForm = (props) => {
   let AddNewMessage = (values) => {
     props.sendMessage(values);
@@ -28,9 +39,12 @@ const AddMessageForm = (props) => {
           <div>
             <Field
               name={"newMessageBody"}
-              as={Textarea}
+              as={Input}
               placeholder={"enter text"}
-              validate={[required, maxLength10]}
+              validate={(value) => {
+                const errors = validateTextarea(value);
+                return errors.length ? errors : undefined;
+              }}
             />
           </div>
 

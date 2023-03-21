@@ -6,7 +6,6 @@ import {
   required,
   maxLengthCreator,
 } from "../../../utils/validators/validators";
-
 import { Textarea } from "../../Common/FormsControls/FormsControls";
 
 function MyPost(props) {
@@ -28,10 +27,9 @@ function MyPost(props) {
   );
 }
 
-// const maxLength10 = maxLengthCreator(10);
 export const validateTextarea = (value) => {
   const errors = [];
-  const maxLength = maxLengthCreator(10);
+  const maxLength = maxLengthCreator(5);
 
   if (required(value)) {
     errors.push("Field is required");
@@ -62,6 +60,7 @@ const AddMessageForm = (props) => {
         <Form>
           <div>
             <Field
+            
               name={"newMessageBody"}
               as={Textarea}
               placeholder={"enter text"}
@@ -69,6 +68,8 @@ const AddMessageForm = (props) => {
                 const errors = validateTextarea(value);
                 return errors.length ? errors : undefined;
               }}
+
+
             />
           </div>
 

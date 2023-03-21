@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik } from "formik";
 
+
 const LoginForm = (props) => (
   <div>
     <h1>Login</h1>
@@ -11,16 +12,16 @@ const LoginForm = (props) => (
         const errors = {};
         if (!values.login) {
           errors.login = "Required login";
-        } else if (values.login.length  > 18) {
-          errors.login = "login be 15 characters or less";
+        } else if (values.login.length  > 25) {
+          errors.login = "login be 25 characters or less";
         } else if (values.login.length < 3) {
-          errors.login = "login be 15 characters or more";
+          errors.login = "login be 3 characters or more";
         }else if (!values.password){
           errors.password = "Required password";
         }else if (values.password.length  > 18) {
-          errors.password = "password be 15 characters or less";
+          errors.password = "password be 18 characters or less";
         } else if (values.password.length < 3) {
-          errors.password = "password be 15 characters or more";
+          errors.password = "password be 3 characters or more";
         }
         return errors;
       }}
@@ -37,7 +38,7 @@ const LoginForm = (props) => (
       }) => (
         <form onSubmit={handleSubmit}>
           <input
-            type="login"
+            type="text"
             name="login"
             onChange={handleChange}
             onBlur={handleBlur}

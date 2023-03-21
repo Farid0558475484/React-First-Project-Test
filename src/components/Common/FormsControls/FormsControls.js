@@ -1,7 +1,7 @@
 import React from "react";
-import s from "./FormsControls.module.css";
+import s from "./FormsControls.module.scss";
 
-export const FormControl = ({ input, meta, child, ...props }) => {
+export const FormControl = ({ input, meta, child, touched, ...props }) => {
   const hasError = meta && meta.touched && meta.error;
 
   return (
@@ -12,27 +12,30 @@ export const FormControl = ({ input, meta, child, ...props }) => {
   );
 };
 
-export const Textarea = ({ input, meta, ...props }) => {
+export const Textarea = ({ input, meta, touched, ...props }) => {
   const hasError = meta && meta.touched && meta.error;
 
   return (
-    <div className={`${s.formController} ${hasError ? s.error : ""}`}>
-      <div>
-        <textarea {...input} {...props} className={s.a} />
-      </div>
-      {hasError && <span>{meta.error}</span>}
-    </div>
+    <FormControl input={input} meta={meta}>
+      <textarea
+        {...input}
+        {...props}
+        className={`${s.formController} ${hasError ? s.error : ""}`}
+      />
+    </FormControl>
   );
 };
-export const Input = ({ input, meta, ...props }) => {
+
+export const Input = ({ input, meta, touched, ...props }) => {
   const hasError = meta && meta.touched && meta.error;
 
   return (
-    <div className={`${s.formController} ${hasError ? s.error : ""}`}>
-      <div>
-        <input {...input} {...props} />
-      </div>
-      {hasError && <span>{meta.error}</span>}
-    </div>
+    <FormControl input={input} meta={meta}>
+      <input
+        {...input}
+        {...props}
+        className={`${s.formController} ${hasError ? s.error : ""}`}
+      />
+    </FormControl>
   );
 };
