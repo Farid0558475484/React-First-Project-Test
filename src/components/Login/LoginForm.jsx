@@ -11,19 +11,25 @@ const LoginForm = (props) => (
       validate={(values) => {
         const errors = {};
         if (!values.login) {
-          errors.login = "Required login";
-        } else if (values.login.length  > 25) {
-          errors.login = "login be 25 characters or less";
+          errors.login = "Required Login";
+        } else if (values.login.length > 25) {
+          errors.login = " Must Login be 25 characters or less";
         } else if (values.login.length < 3) {
-          errors.login = "login be 3 characters or more";
-        }else if (!values.password){
-          errors.password = "Required password";
-        }else if (values.password.length  > 18) {
-          errors.password = "password be 18 characters or less";
+          errors.login = " Must Login be 3 characters or more";
+        } else if (!values.password) {
+          errors.password = " Required Password";
+        } else if (values.password.length > 18) {
+          errors.password = "Must Password be 18 characters or less";
         } else if (values.password.length < 3) {
-          errors.password = "password be 3 characters or more";
+          errors.password = "Must Password be 3 characters or more";
         }
+        
         return errors;
+        
+      }}
+      onReset={(values, { setErrors, setTouched }) => {
+        setErrors({});
+        setTouched({});
       }}
     >
       {({
@@ -43,18 +49,21 @@ const LoginForm = (props) => (
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.login}
-          /><br/>
+          />
+          <br />
           {errors.login && touched.login && errors.login}
-          <br/>
+          <br />
           <input
             type="password"
             name="password"
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.password}
-          /><br/>
+          />
+          <br />
           {errors.password && touched.password && errors.password}
-          <br/><br/> 
+          <br />
+          <br />
           <button type="submit" disabled={isSubmitting}>
             Submit
           </button>

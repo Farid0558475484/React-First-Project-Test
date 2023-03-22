@@ -5,20 +5,28 @@ import {
   unfollow,
   setCurrentPage,
   toggleFollowingProgress,
-  getUsers,
+  requestUsers,
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import AuthNavigate from "../HOC/AuthNavigate";
 import { compose } from "redux";
+import {
+  getCurrentPage,
+  getFollowingInProgress,
+  getIsFetching,
+  getPageSize,
+  getTotalUsersCount,
+  getUsers,
+} from "../../redux/users-selectors";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    this.props.requestUsers(this.props.currentPage, this.props.pageSize);
   }
 
   onChangePage = (pageNumber) => {
-    this.props.getUsers(pageNumber, this.props.pageSize);
+    this.props.requestUsers(pageNumber, this.props.pageSize);
   };
 
   render() {
@@ -43,14 +51,24 @@ class UsersContainer extends React.Component {
   }
 }
 
+// let mapStateToProps = (state) => {
+//   return {
+//     users: state.usersPage.users, //передаем в пропсы массив пользователей
+//     pageSize: state.usersPage.pageSize, //передаем в пропсы размер страницы
+//     totalUsersCount: state.usersPage.totalUsersCount, //передаем в пропсы общее количество пользователей
+//     currentPage: state.usersPage.currentPage, //передаем в пропсы текущую страницу
+//     isFetching: state.usersPage.isFetching, //передаем в пропсы флаг загрузки
+//     followingInProgress: state.usersPage.followingInProgress,
+//   };
+// };
 let mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users, //передаем в пропсы массив пользователей
-    pageSize: state.usersPage.pageSize, //передаем в пропсы размер страницы
-    totalUsersCount: state.usersPage.totalUsersCount, //передаем в пропсы общее количество пользователей
-    currentPage: state.usersPage.currentPage, //передаем в пропсы текущую страницу
-    isFetching: state.usersPage.isFetching, //передаем в пропсы флаг загрузки
-    followingInProgress: state.usersPage.followingInProgress,
+    users: getUsers(state), //передаем в пропсы массив пользователей
+    pageSize: getPageSize(state), //передаем в пропсы размер страницы
+    totalUsersCount: getTotalUsersCount(state), //передаем в пропсы общее количество пользователей
+    currentPage: getCurrentPage(state), //передаем в пропсы текущую страницу
+    isFetching: getIsFetching(state), //передаем в пропсы флаг загрузки
+    followingInProgress: getFollowingInProgress(state),
   };
 };
 
@@ -61,6 +79,6 @@ export default compose(
     unfollow,
     setCurrentPage,
     toggleFollowingProgress,
-    getUsers,
+    requestUsers,
   })
 )(UsersContainer);
