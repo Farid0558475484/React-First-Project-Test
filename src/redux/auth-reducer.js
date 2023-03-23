@@ -42,6 +42,8 @@ export const login = (email, password, rememberMe) => (dispatch) => {
   });
 };
 
+
+// console.log(response.data.messages);
 export const logout = () => (dispatch) => {
   authAPI.logout().then((response) => {
     if (response.data.resultCode === 0) {
