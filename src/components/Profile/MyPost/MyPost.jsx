@@ -8,13 +8,12 @@ import {
 } from "../../../utils/validators/validators";
 import { Textarea } from "../../Common/FormsControls/FormsControls";
 
-function MyPost(props) {
+const MyPost = React.memo((props) => {
   let postElements = props.posts.map((p) => (
-    <Post message={p.message} like={p.like} key={p.id++} />
+    <Post message={p.message} likesCount={p.likesCount} key={p.id++} />
   ));
 
   let onAddPost = (values) => {
-    // if (values.newMessageBody === "") return;
     props.addPost(values.newMessageBody);
   };
 
@@ -25,7 +24,7 @@ function MyPost(props) {
       {postElements}
     </div>
   );
-}
+});
 
 export const validateTextarea = (value) => {
   const errors = [];
@@ -60,7 +59,6 @@ const AddMessageForm = (props) => {
         <Form>
           <div>
             <Field
-            
               name={"newMessageBody"}
               as={Textarea}
               placeholder={"enter text"}
@@ -68,8 +66,6 @@ const AddMessageForm = (props) => {
                 const errors = validateTextarea(value);
                 return errors.length ? errors : undefined;
               }}
-
-
             />
           </div>
 
