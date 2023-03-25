@@ -9,7 +9,7 @@ const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE_IS_FOLLOWING_PROGRESS";
 
 let initialState = {
   users: [], //массив пользователей
-  pageSize: 5, //количество пользователей на странице
+  pageSize: 10, //количество пользователей на странице
   totalUsersCount: 1, //общее количество пользователей
   currentPage: 1, //текущая страница
   isFetching: true,

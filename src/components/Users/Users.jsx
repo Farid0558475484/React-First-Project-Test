@@ -3,7 +3,6 @@ import styles from "./Users.module.scss";
 import userPhoto from "./../../img/user.png";
 import { NavLink } from "react-router-dom";
 
-
 const Users = (props) => {
   let pagesCount = Math.ceil(
     props.totalUsersCount / props.pageSize //округляем в большую сторону
@@ -20,6 +19,14 @@ const Users = (props) => {
   return (
     <div>
       <div className={styles.itemCount}>
+        {props.currentPage > 1 && (
+          <button
+            className={styles.btnPagination}
+            onClick={() => props.onChangePage(props.currentPage - 1)}
+          >
+            Prev
+          </button>
+        )}
         {pages.map((p) => {
           return (
             <span
@@ -33,6 +40,14 @@ const Users = (props) => {
             </span>
           );
         })}
+        {props.currentPage < pagesCount && (
+          <button
+            className={styles.btnPagination}
+            onClick={() => props.onChangePage(props.currentPage + 1)}
+          >
+            Next
+          </button>
+        )}
       </div>
 
       {props.users.map((u) => (
@@ -74,7 +89,10 @@ const Users = (props) => {
               <div>{u.name}</div>
               <div>{u.status}</div>
             </span>
-            <span></span>
+            <span>
+              <div>{"u.location.country"}</div>
+              <div>{"u.location.city"}</div>
+            </span>
           </span>
         </div>
       ))}
