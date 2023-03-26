@@ -9,14 +9,11 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
-// const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
-// const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
-
 
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter >
       <div className="app-wrapper">
         <HeaderContainer />
         <Navbar />
