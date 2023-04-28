@@ -1,12 +1,15 @@
 import React from "react";
 import { Formik } from "formik";
 
-
 const LoginForm = (props) => (
   <div>
     <h1>Login</h1>
     <Formik
-      onSubmit={props.handleSubmit}
+      onSubmit={(values, { setSubmitting, setErrors }) => {
+        props.handleSubmit(values);
+        setSubmitting(false);
+        setErrors({});
+      }}
       initialValues={{ login: "", password: "" }}
       validate={(values) => {
         const errors = {};
@@ -23,9 +26,8 @@ const LoginForm = (props) => (
         } else if (values.password.length < 3) {
           errors.password = "Must Password be 3 characters or more";
         }
-        
+
         return errors;
-        
       }}
       onReset={(values, { setErrors, setTouched }) => {
         setErrors({});

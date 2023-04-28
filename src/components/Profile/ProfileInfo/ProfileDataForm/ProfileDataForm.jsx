@@ -32,18 +32,7 @@ const ProfileDataForm = ({ handleSubmit, profile, error }) => {
         <b>About me</b>:
         {createField("About me", "aboutMe", [required], Field, {})}
       </div>
-      {/* <div>
-        <b>Contacts</b>:{" "}
-        {Object.keys(profile.contacts).map((key) => {
-          return (
-            <div key={key}>
-              <b>
-                {key}: {createField(key, "contacts." + key, [], Field, {})}
-              </b>
-            </div>
-          );
-        })}
-      </div> */}
+
     </Form>
   );
 };

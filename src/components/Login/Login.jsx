@@ -1,13 +1,10 @@
 import React from "react";
 import LoginForm from "./LoginForm";
-// import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
 import { login } from "../../redux/auth-reducer";
 import { Navigate } from "react-router-dom";
 
 function Login(props) {
-  // const dispatch = useDispatch();
-
   const onSubmit = (formData) => {
     props.login(formData.login, formData.password, formData.rememberMe);
   };
