@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 
 function Login(props) {
   const onSubmit = (formData) => {
-    props.login(formData.login, formData.password, formData.rememberMe);
+    props.login(formData.login, formData.password, formData.rememberMe, formData.captcha);
   };
 
   if (props.isAuth) {
@@ -16,12 +16,12 @@ function Login(props) {
   return (
     <div>
       <h1>Login</h1>
-
-      <LoginForm handleSubmit={onSubmit} />
+      <LoginForm handleSubmit={onSubmit} captchaUrl={props.captchaUrl} />
     </div>
   );
 }
 const mapStateToProps = (state) => ({
+  captchaUrl: state.auth.captchaUrl,
   isAuth: state.auth.isAuth,
 });
 export default connect(mapStateToProps, { login })(Login);

@@ -1,16 +1,16 @@
 import React from "react";
 import { Formik } from "formik";
 
-const LoginForm = (props) => (
+const LoginForm = ({ handleSubmit, captchaUrl }) => (
   <div>
     <h1>Login</h1>
     <Formik
       onSubmit={(values, { setSubmitting, setErrors }) => {
-        props.handleSubmit(values);
+        handleSubmit(values);
         setSubmitting(false);
         setErrors({});
       }}
-      initialValues={{ login: "", password: "" }}
+      initialValues={{ login: "", password: "", captcha: "" }}
       validate={(values) => {
         const errors = {};
         if (!values.login) {
@@ -25,8 +25,9 @@ const LoginForm = (props) => (
           errors.password = "Must Password be 18 characters or less";
         } else if (values.password.length < 3) {
           errors.password = "Must Password be 3 characters or more";
+        } else if (!values.captcha) {
+          errors.captcha = " Required Captcha";
         }
-
         return errors;
       }}
       onReset={(values, { setErrors, setTouched }) => {
@@ -42,7 +43,6 @@ const LoginForm = (props) => (
         handleBlur,
         handleSubmit,
         isSubmitting,
-        /* and other goodies */
       }) => (
         <form onSubmit={handleSubmit}>
           <input
@@ -65,6 +65,16 @@ const LoginForm = (props) => (
           <br />
           {errors.password && touched.password && errors.password}
           <br />
+          <input
+            type="text"
+            name="captcha"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.captcha}
+          />
+          <br />
+          {errors.captcha && touched.captcha && errors.captcha}
+          <br />
           <br />
           <button type="submit" disabled={isSubmitting}>
             Submit
@@ -72,6 +82,8 @@ const LoginForm = (props) => (
         </form>
       )}
     </Formik>
+    {captchaUrl && <img src={captchaUrl} alt="captcha" />}
+    
   </div>
 );
 
