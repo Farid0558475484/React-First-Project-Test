@@ -1,11 +1,9 @@
 import React from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux";
-import { getUserProfile } from "../../redux/profile-reducer";
+import { getUserProfile, getStatus, updateStatus, savePhoto } from "../../redux/profile-reducer";
 import { useParams } from "react-router-dom";
 import { compose } from "redux";
-import { getStatus, updateStatus } from "../../redux/profile-reducer";
-import { savePhoto } from "../../redux/profile-reducer";
 
 export function withRouter(Children) {
   return (props) => {
@@ -15,6 +13,7 @@ export function withRouter(Children) {
 }
 
 class ProfileContainer extends React.Component {
+  
   refreshProfile() {
     let userId = this.props.match.params.userId;
     if (!userId) {
@@ -36,6 +35,7 @@ class ProfileContainer extends React.Component {
       this.refreshProfile();
     }
   }
+  
   render() {
     return (
       <>
@@ -51,6 +51,7 @@ class ProfileContainer extends React.Component {
     );
   }
 }
+
 let mapStateToProps = (state) => {
   return {
     profile: state.profilePage.profile,
