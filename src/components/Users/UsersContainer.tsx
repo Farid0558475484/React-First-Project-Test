@@ -20,6 +20,7 @@ import {
   getUsers,
 } from "../../redux/users-selectors";
 import { UserType } from "../../types/types";
+import { AppStateType } from "../../redux/redux-store";
 
 type PropsType = {
   pageSize: number;
@@ -33,7 +34,6 @@ type PropsType = {
   totalUsersCount: number;
   users: Array<UserType>;
 };
-
 
 class UsersContainer extends React.Component<PropsType> {
   componentDidMount() {
@@ -66,17 +66,7 @@ class UsersContainer extends React.Component<PropsType> {
   }
 }
 
-type MapStatePropsType = {
-  users: Array<any>;
-  pageSize: number;
-  totalUsersCount: number;
-  currentPage: number;
-  isFetching: boolean;
-  followingInProgress: Array<number>;
-};
-
-
-let mapStateToProps = (state):MapStatePropsType => {
+let mapStateToProps = (state:AppStateType) => {
   return {
     users: getUsers(state), //передаем в пропсы массив пользователей
     pageSize: getPageSize(state), //передаем в пропсы размер страницы

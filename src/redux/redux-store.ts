@@ -10,16 +10,18 @@ import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
 
-
-const reducers = combineReducers({
+const rootReducer = combineReducers({
   profilePage: profilReducer,
   dialogsPage: dialogsReducer,
   sidebar: sidebarReducer,
   usersPage: usersReducer,
   auth: authReducer,
   
-
 });
-const store = createStore(reducers, applyMiddleware(thunkMiddleware));
+
+type RootReducerType = typeof rootReducer;
+export type AppStateType = ReturnType<RootReducerType>;
+
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 export default store;
