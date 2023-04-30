@@ -2,54 +2,17 @@ import React from "react";
 import styles from "./Users.module.scss";
 import userPhoto from "./../../img/user.png";
 import { NavLink } from "react-router-dom";
+import Paginator from "./../Common/Paginator/Paginator";
 
 const Users = (props) => {
-  let pagesCount = Math.ceil(
-    props.totalUsersCount / props.pageSize //округляем в большую сторону
-  );
-  let pages = [];
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i); //заполняем массив pages числами от 1 до pagesCount
-  }
-
-  if (pages.length > 10) {
-    pages = pages.slice(props.currentPage - 1, props.currentPage + 5);
-  }
-
   return (
     <div>
-      <div className={styles.itemCount}>
-        {props.currentPage > 1 && (
-          <button
-            className={styles.btnPagination}
-            onClick={() => props.onChangePage(props.currentPage - 1)}
-          >
-            Prev
-          </button>
-        )}
-        {pages.map((p) => {
-          return (
-            <span
-              key={p}
-              className={props.currentPage === p ? styles.selectedPage : ""}
-              onClick={(e) => {
-                props.onChangePage(p);
-              }}
-            >
-              {p}
-            </span>
-          );
-        })}
-        {props.currentPage < pagesCount && (
-          <button
-            className={styles.btnPagination}
-            onClick={() => props.onChangePage(props.currentPage + 1)}
-          >
-            Next
-          </button>
-        )}
-      </div>
-
+      <Paginator
+        totalItemsCount={props.totalUsersCount}
+        pageSize={props.pageSize}
+        currentPage={props.currentPage}
+        onChangePage={props.onChangePage}
+      />
       {props.users.map((u) => (
         <div key={u.id}>
           <span>
@@ -57,7 +20,7 @@ const Users = (props) => {
               <NavLink to={"/profile/" + u.id}>
                 <img
                   className={styles.photos}
-                  src={u.photos.small != null ? u.photos.small : userPhoto} //если фото есть, то выводим его, если нет, то выводим userPhoto
+                  src={u.photos.small != null ? u.photos.small : userPhoto}
                   alt="logo"
                 />
               </NavLink>
