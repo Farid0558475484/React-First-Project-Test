@@ -1,11 +1,8 @@
-// import React from "react";
 import {
   addSignActionCreator,
 } from "../../../redux/profile-reducer";
 import MyPost from "./MyPost";
 import {connect} from "react-redux";
-
-
 
 
 const mapStateToProps = (state) => {
