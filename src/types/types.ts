@@ -1,11 +1,11 @@
 export type PostType = {
-  id?: number;
-  message?: string;
-  likesCount?: number;
+  id: number;
+  message: string;
+  likesCount: number;
 };
 
 export type ProfileType = {
-  userId?: number;
+  userId: number;
   lookingForAJob?: boolean;
   lookingForAJobDescription?: string;
   fullName?: string;

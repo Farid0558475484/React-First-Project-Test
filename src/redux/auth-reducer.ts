@@ -1,4 +1,4 @@
-import { authAPI } from "./../api/api";
+import { ResultCodesEnum,ResultCodeForCaptcha, authAPI } from "./../api/api";
 import { securityAPI } from "./../api/api";
 const SET_USER_DATA = "social-network/auth/SET_USER_DATA";
 const SET_CAPTCHA_URL = "social-network/auth/SET_CAPTCHA_URL";
@@ -65,9 +65,9 @@ export const setCaptchaUrl = (captchaUrl: string): SetCaptchaUrlActionType => ({
 });
 
 export const getAuthUserData = () => async (dispatch: any) => {
-  const response = await authAPI.me();
-  if (response.data.resultCode === 0) {
-    let { id, email, login } = response.data.data;
+  const meData = await authAPI.me();
+  if (meData.resultCode === ResultCodesEnum.Success) {
+    let { id, email, login } = meData.data;
     dispatch(setAuthUserData(id, email, login, true));
   }
 };
@@ -79,15 +79,15 @@ export const login =
     captcha: null | undefined
   ) =>
   async (dispatch: any) => {
-    const response = await authAPI.login(email, password, rememberMe, captcha);
+    const loginData = await authAPI.login(email, password, rememberMe, captcha);
 
-    if (response.data.resultCode === 0) {
+    if (loginData.resultCode === ResultCodesEnum.Success) {
       dispatch(getAuthUserData());
     } else {
-      if (response.data.resultCode === 10) {
+      if (loginData.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
         dispatch(getCaptchaUrl());
       }
-      alert(response.data.messages);
+      alert(loginData.messages);
     }
   };
 
