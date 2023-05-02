@@ -1,12 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-  follow,
-  unfollow,
-  setCurrentPage,
-  toggleFollowingProgress,
-  requestUsers,
-} from "../../redux/users-reducer";
+import { follow, unfollow, requestUsers } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import AuthNavigate from "../HOC/AuthNavigate";
@@ -34,8 +28,6 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
   follow: (userId: number) => void;
   unfollow: (userId: number) => void;
-  setCurrentPage: (pageNumber: number) => void;
-  toggleFollowingProgress: (isFetching: boolean, userId: number) => void;
   requestUsers: (currentPage: number, pageSize: number) => void;
 };
 
@@ -94,8 +86,6 @@ export default compose(
     {
       follow,
       unfollow,
-      setCurrentPage,
-      toggleFollowingProgress,
       requestUsers,
     }
   )

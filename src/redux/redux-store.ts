@@ -16,11 +16,16 @@ const rootReducer = combineReducers({
   sidebar: sidebarReducer,
   usersPage: usersReducer,
   auth: authReducer,
-  
 });
 
 type RootReducerType = typeof rootReducer;
 export type AppStateType = ReturnType<RootReducerType>;
+
+type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never;
+
+export type InferActionsTypes<
+  T extends { [key: string]: (...arg: any[]) => any }
+> = ReturnType<PropertiesTypes<T>>;
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
