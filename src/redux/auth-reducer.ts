@@ -76,7 +76,7 @@ export const login =
     email: string,
     password: string,
     rememberMe: boolean,
-    captcha: null | undefined
+    captcha: string
   ) =>
   async (dispatch: any) => {
     const loginData = await authAPI.login(email, password, rememberMe, captcha);

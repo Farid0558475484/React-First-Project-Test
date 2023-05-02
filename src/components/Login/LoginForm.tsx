@@ -1,44 +1,68 @@
-import React, { useState } from "react";
-import { Formik } from "formik";
+import { useState } from "react";
+import { Formik, FormikHelpers, FormikErrors } from "formik";
 
-const LoginForm = ({ handleSubmit, captchaUrl }) => {
+interface Props {
+  handleSubmit: (values: LoginValues) => void;
+  captchaUrl: string | null;
+}
+
+interface LoginValues {
+  login: string;
+  password: string;
+  captcha: string;
+  rememberMe: boolean;
+}
+
+const LoginForm = ({ handleSubmit, captchaUrl }: Props) => {
   const [submitted, setSubmitted] = useState(false);
+
+  const onSubmit = (
+    values: LoginValues,
+    { setSubmitting, setErrors }: FormikHelpers<LoginValues>
+  ) => {
+    handleSubmit(values);
+    setSubmitting(false);
+    setErrors({});
+    setSubmitted(true);
+  };
+
+  const validate = (values: LoginValues) => {
+    const errors: FormikErrors<LoginValues> = {};
+    if (!values.login) {
+      errors.login = "Required Login";
+    } else if (values.login.length > 25) {
+      errors.login = " Must Login be 25 characters or less";
+    } else if (values.login.length < 3) {
+      errors.login = " Must Login be 3 characters or more";
+    } else if (!values.password) {
+      errors.password = " Required Password";
+    } else if (values.password.length > 18) {
+      errors.password = "Must Password be 18 characters or less";
+    } else if (values.password.length < 3) {
+      errors.password = "Must Password be 3 characters or more";
+    } else if (!values.captcha && submitted) {
+      errors.captcha = " Required Captcha";
+    }
+    return errors;
+  };
+
+  const onReset = (
+    values: LoginValues,
+    { setErrors, setTouched }: FormikHelpers<LoginValues>
+  ) => {
+    setErrors({});
+    setTouched({});
+    setSubmitted(false);
+  };
 
   return (
     <div>
       <h1>Login</h1>
       <Formik
-        onSubmit={(values, { setSubmitting, setErrors }) => {
-          handleSubmit(values);
-          setSubmitting(false);
-          setErrors({});
-          setSubmitted(true);
-        }}
-        initialValues={{ login: "", password: "", captcha: "" }}
-        validate={(values) => {
-          const errors = {};
-          if (!values.login) {
-            errors.login = "Required Login";
-          } else if (values.login.length > 25) {
-            errors.login = " Must Login be 25 characters or less";
-          } else if (values.login.length < 3) {
-            errors.login = " Must Login be 3 characters or more";
-          } else if (!values.password) {
-            errors.password = " Required Password";
-          } else if (values.password.length > 18) {
-            errors.password = "Must Password be 18 characters or less";
-          } else if (values.password.length < 3) {
-            errors.password = "Must Password be 3 characters or more";
-          } else if (!values.captcha && submitted) {
-            errors.captcha = " Required Captcha";
-          }
-          return errors;
-        }}
-        onReset={(values, { setErrors, setTouched }) => {
-          setErrors({});
-          setTouched({});
-          setSubmitted(false);
-        }}
+        initialValues={{ login: "", password: "", captcha: "", rememberMe: false }}
+        onSubmit={onSubmit}
+        validate={validate}
+        onReset={onReset}
       >
         {({
           values,
@@ -68,7 +92,6 @@ const LoginForm = ({ handleSubmit, captchaUrl }) => {
               value={values.password}
             />
             <br />
-
             {errors.password && touched.password && errors.password}
             <br />
             {captchaUrl && submitted && (
@@ -87,7 +110,6 @@ const LoginForm = ({ handleSubmit, captchaUrl }) => {
                 <br />
               </>
             )}
-
             <button type="submit" disabled={isSubmitting}>
               Submit
             </button>
