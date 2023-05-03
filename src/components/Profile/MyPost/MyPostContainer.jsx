@@ -1,5 +1,5 @@
 import {
-  addSignActionCreator,
+  actions,
 } from "../../../redux/profile-reducer";
 import MyPost from "./MyPost";
 import {connect} from "react-redux";
@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => {
  
 
     addPost: (newPostText) => {
-      dispatch(addSignActionCreator(newPostText));
+      dispatch(actions.addSignActionCreator(newPostText));
     },
   };
 };
