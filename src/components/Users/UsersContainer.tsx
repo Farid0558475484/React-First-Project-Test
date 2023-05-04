@@ -32,7 +32,7 @@ type MapDispatchPropsType = {
 };
 
 type OwnPropsType = {
-  pageTitle: string;
+  // pageTitle: string;
 };
 
 type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType;

@@ -1,8 +1,8 @@
-// 
+ 
 import React from "react";
 import { Formik, Field, Form } from "formik";
 import { required } from "../../../../utils/validators/validators";
-import { createField } from "../../../Common/FormsControls/FormsControls";
+import { createField } from "../../../Common/FormsControls/FormsControls.ts";
 
 const ProfileDataForm = ({ handleSubmit, profile, error }) => {
   return (

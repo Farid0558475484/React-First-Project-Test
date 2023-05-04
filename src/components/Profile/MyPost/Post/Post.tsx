@@ -6,7 +6,6 @@ function Post(props) {
     <>
       {props.message}
       <div className={s.item}>Post</div>
-      {/* <div className={s.item}>Post</div> */}
     </>
   );
 }
