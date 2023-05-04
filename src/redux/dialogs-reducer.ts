@@ -15,9 +15,9 @@ type ActionsType = InferActionsTypes<typeof actions>;
 
 let initialState = {
   messages: [
-    { message: "hi", id: 1 },
-    { message: "How are you?", id: 2 },
-    { message: "Fine", id: 3 },
+    // { message: "hi", id: 1 },
+    // { message: "How are you?", id: 2 },
+    // { message: "Fine", id: 3 },
   ] as Array<MessageType>,
 
   dialogs: [
@@ -40,7 +40,7 @@ const dialogsReducer = (
       let body = action.newMessageBody;
       return {
         ...state,
-        messages: [...state.messages, { id: 4, message: body }],
+        messages: [...state.messages, { id: 1, message: body }],
       };
 
     default:
@@ -49,7 +49,7 @@ const dialogsReducer = (
 };
 
 export const actions = {
-  sendMessageCreator: (newMessageBody: string) =>
+  sendMessage: (newMessageBody: string) =>
     ({ type: "SN/DIALOGS/SEND-MESSAGE", newMessageBody } as const),
 };
 

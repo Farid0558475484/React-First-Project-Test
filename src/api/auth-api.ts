@@ -1,7 +1,5 @@
 import { instance, APIResponseType, ResultCodeForCaptchaEnum, ResultCodesEnum } from "./api";
 
-
-
 type MeResponseDataType = {
   id: number;
   email: string;

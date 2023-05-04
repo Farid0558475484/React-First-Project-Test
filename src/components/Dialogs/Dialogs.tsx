@@ -1,24 +1,22 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
 import s from "./Dialogs.module.scss";
-import { Navigate } from "react-router-dom";
 import AddMessageForm from "./AddMessageForm/AddMessageForm";
+import { FC } from "react";
+import { InitialStateType } from "../../redux/dialogs-reducer";
+import Message from "./Message/Message";
+import DialogItem from "./DialogItem/DialogItem";
 
-const DialogItem = (props) => {
-  let path = "/dialog/" + props.id;
-  return (
-    <div className={s.dialog}>
-      <NavLink to={path}>{props.name}</NavLink>
-    </div>
-  );
+type PropsType = {
+  dialogsPage: InitialStateType;
+  sendMessage: (messageText: string) => void;
 };
 
-const Message = (props) => {
-  return <div className={s.dialog}>{props.message}</div>;
+export type NewMessageFormValuesType = {
+  newMessageBody: string;
 };
 
-function Dialogs(props) {
+const Dialogs: FC<PropsType> = (props) => {
   let state = props.dialogsPage;
+
   let dialogsElements = state.dialogs.map((d) => (
     <DialogItem key={d.id} name={d.name} id={d.id} />
   ));
@@ -27,16 +25,21 @@ function Dialogs(props) {
     <Message key={m.id} message={m.message} id={m.id++} />
   ));
 
-  if (!props.isAuth) return <Navigate to={"/login"} />;
+  let addNewMessage = (values: NewMessageFormValuesType) => {
+    props.sendMessage(values.newMessageBody);
+  };
+
+
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}> {dialogsElements}</div>
       <div className={s.messages}>
         <div> {messagesElements}</div>
-        <AddMessageForm sendMessage={props.sendMessage} />
+        <AddMessageForm onSubmit={addNewMessage} sendMessage={props.sendMessage} />
+
       </div>
     </div>
   );
-}
+};
 
 export default Dialogs;
