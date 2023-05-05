@@ -15,6 +15,7 @@ import {
 } from "../../redux/users-selectors";
 import { UserType } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
+import { FilterType } from "../../redux/users-reducer";
 
 type MapStatePropsType = {
   users: Array<UserType>;
@@ -28,7 +29,7 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
   follow: (userId: number) => void;
   unfollow: (userId: number) => void;
-  requestUsers: (currentPage: number, pageSize: number) => void;
+  requestUsers: (currentPage: number, pageSize: number, term: string) => void;
 };
 
 type OwnPropsType = {
@@ -39,11 +40,16 @@ type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType;
 
 class UsersContainer extends React.Component<PropsType> {
   componentDidMount() {
-    this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+    this.props.requestUsers(this.props.currentPage, this.props.pageSize, "");
   }
 
   onChangePage = (pageNumber: number) => {
-    this.props.requestUsers(pageNumber, this.props.pageSize);
+    this.props.requestUsers(pageNumber, this.props.pageSize, "");
+  };
+
+  onFilterChanged = (filter: FilterType) => {
+    const { pageSize, currentPage} = this.props;
+    this.props.requestUsers(currentPage, pageSize, filter.term);
   };
 
   render() {
@@ -57,6 +63,7 @@ class UsersContainer extends React.Component<PropsType> {
             pageSize={this.props.pageSize}
             currentPage={this.props.currentPage}
             onChangePage={this.onChangePage}
+            onFilterChanged={this.onFilterChanged}
             follow={this.props.follow}
             unfollow={this.props.unfollow}
             users={this.props.users}

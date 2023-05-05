@@ -4,12 +4,15 @@ import userPhoto from "./../../img/user.png";
 import { NavLink } from "react-router-dom";
 import Paginator from "../Common/Paginator/Paginator";
 import { UserType } from "../../types/types";
+import UsersSearchForm from "./UserSearchForm";
+import { FilterType } from "../../redux/users-reducer";
 
 type PropsType = {
   totalUsersCount: number;
   pageSize: number;
   currentPage: number;
   onChangePage: (pageNumber: number) => void;
+  onFilterChanged: (filter: FilterType) => void;
   users: Array<UserType>;
   followingInProgress: Array<number>;
   unfollow: (userId: number) => void;
@@ -19,6 +22,9 @@ type PropsType = {
 const Users: FC<PropsType> = (props) => {
   return (
     <div>
+      <div>
+        <UsersSearchForm onFilterChanged={props.onFilterChanged} />
+      </div>
       <Paginator
         totalItemsCount={props.totalUsersCount}
         pageSize={props.pageSize}
@@ -74,5 +80,11 @@ const Users: FC<PropsType> = (props) => {
     </div>
   );
 };
+
+
+
+
+
+
 
 export default Users;

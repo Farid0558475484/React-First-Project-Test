@@ -10,9 +10,13 @@ let initialState = {
   currentPage: 1, //текущая страница
   isFetching: true,
   followingInProgress: [] as Array<number>, //массив пользователей, которые сейчас подписываются
+  filter: {
+    term: "",
+  },
 };
 
 type InitialStateType = typeof initialState;
+export type FilterType = typeof initialState.filter;
 type ActionsTypes = InferActionsTypes<typeof actions>;
 type ThunkType = BaseThunkType<ActionsTypes>;
 
@@ -74,6 +78,11 @@ const usersReducer = (
           ? [...state.followingInProgress, action.userId]
           : state.followingInProgress.filter((id) => id !== action.userId),
       };
+    case "SN/USERS/SET_FILTER":
+      return {
+        ...state,
+        filter: action.payload,
+      };
 
     default:
       return state;
@@ -107,6 +116,12 @@ export const actions = {
 
       count: totalUsersCount,
     } as const), //добавили
+  setFilter: (filter: string) =>
+    ({
+      type: "SN/USERS/SET_FILTER",
+      payload: { term: filter },
+    } as const), //добавили
+
   toggleIsFetching: (isFetching: boolean) =>
     ({
       type: "SN/USERS/TOGGLE_IS_FETCHING",
@@ -120,14 +135,17 @@ export const actions = {
     } as const), //добавили'
 };
 
-
-
-export const requestUsers = (page: number, pageSize: number): ThunkType => {
+export const requestUsers = (
+  page: number,
+  pageSize: number,
+  term: string
+): ThunkType => {
   return async (dispatch) => {
     dispatch(actions.toggleIsFetching(true));
     dispatch(actions.setCurrentPage(page));
-    const data = await usersAPI.getUsers(page, pageSize);
+    dispatch(actions.setFilter(term));
 
+    const data = await usersAPI.getUsers(page, pageSize, term);
     dispatch(actions.toggleIsFetching(false));
     dispatch(actions.setUsers(data.items));
     dispatch(actions.setTotalUsersCount(data.totalCount));
