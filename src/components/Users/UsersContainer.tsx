@@ -24,12 +24,17 @@ type MapStatePropsType = {
   currentPage: number;
   isFetching: boolean;
   followingInProgress: Array<number>;
+  filter: FilterType;
 };
 
 type MapDispatchPropsType = {
   follow: (userId: number) => void;
   unfollow: (userId: number) => void;
-  requestUsers: (currentPage: number, pageSize: number, term: string) => void;
+  requestUsers: (
+    currentPage: number,
+    pageSize: number,
+    filter: FilterType
+  ) => void;
 };
 
 type OwnPropsType = {
@@ -40,16 +45,18 @@ type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType;
 
 class UsersContainer extends React.Component<PropsType> {
   componentDidMount() {
-    this.props.requestUsers(this.props.currentPage, this.props.pageSize, "");
+    const { currentPage, pageSize, filter } = this.props;
+    this.props.requestUsers(currentPage, pageSize, filter);
   }
 
   onChangePage = (pageNumber: number) => {
-    this.props.requestUsers(pageNumber, this.props.pageSize, "");
+    const { pageSize, filter } = this.props;
+    this.props.requestUsers(pageNumber, pageSize, filter);
   };
 
   onFilterChanged = (filter: FilterType) => {
-    const { pageSize, currentPage} = this.props;
-    this.props.requestUsers(currentPage, pageSize, filter.term);
+    const { pageSize } = this.props;
+    this.props.requestUsers(1, pageSize, filter);
   };
 
   render() {
@@ -83,6 +90,7 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     currentPage: getCurrentPage(state), //передаем в пропсы текущую страницу
     isFetching: getIsFetching(state), //передаем в пропсы флаг загрузки
     followingInProgress: getFollowingInProgress(state),
+    filter: state.usersPage.filter,
   };
 };
 

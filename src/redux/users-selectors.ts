@@ -23,6 +23,11 @@ const getFollowingInProgress = (state: AppStateType) => {
   return state.usersPage.followingInProgress;
 };
 
+const getFilter = (state: AppStateType) => {
+  return state.usersPage.filter;
+};
+
+
 export {
   getUsers,
   getPageSize,
@@ -31,4 +36,5 @@ export {
   getIsFetching,
   getFollowingInProgress,
   getUsersSelector,
+  getFilter,
 };

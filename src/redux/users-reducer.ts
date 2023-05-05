@@ -12,6 +12,7 @@ let initialState = {
   followingInProgress: [] as Array<number>, //массив пользователей, которые сейчас подписываются
   filter: {
     term: "",
+    friend: null as null | boolean,
   },
 };
 
@@ -78,7 +79,8 @@ const usersReducer = (
           ? [...state.followingInProgress, action.userId]
           : state.followingInProgress.filter((id) => id !== action.userId),
       };
-    case "SN/USERS/SET_FILTER":
+    
+      case "SN/USERS/SET_FILTER":
       return {
         ...state,
         filter: action.payload,
@@ -116,10 +118,10 @@ export const actions = {
 
       count: totalUsersCount,
     } as const), //добавили
-  setFilter: (filter: string) =>
+  setFilter: (filter: FilterType) =>
     ({
       type: "SN/USERS/SET_FILTER",
-      payload: { term: filter },
+      payload: filter,
     } as const), //добавили
 
   toggleIsFetching: (isFetching: boolean) =>
@@ -138,14 +140,14 @@ export const actions = {
 export const requestUsers = (
   page: number,
   pageSize: number,
-  term: string
+  filter: FilterType
 ): ThunkType => {
   return async (dispatch) => {
     dispatch(actions.toggleIsFetching(true));
     dispatch(actions.setCurrentPage(page));
-    dispatch(actions.setFilter(term));
+    dispatch(actions.setFilter(filter));
 
-    const data = await usersAPI.getUsers(page, pageSize, term);
+    const data = await usersAPI.getUsers(page, pageSize,filter.term, filter.friend);
     dispatch(actions.toggleIsFetching(false));
     dispatch(actions.setUsers(data.items));
     dispatch(actions.setTotalUsersCount(data.totalCount));
